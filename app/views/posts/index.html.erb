@@ -7,7 +7,7 @@
         <tr>
           <td><%= post.replies_count %></td>
           <td><%= post.title %></td>
-          <td><%= link_to 'Show', root_path %></td>
+          <td><%= post.replies.last.created_at %></td>
           <td><%= link_to 'Edit', root_path %></td>
           <td><%= link_to 'Destroy', root_path, method: :delete, data:{ confirm: "Are you sure?" } %></td>
         </tr>
