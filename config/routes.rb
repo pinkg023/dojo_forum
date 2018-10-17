@@ -4,4 +4,10 @@ Rails.application.routes.draw do
 
   root "posts#index"
 
+  resources :posts do
+    member do 
+      post :reply
+    end
+  end
+
 end

@@ -1,0 +1,49 @@
+<div class = "container">
+    <br>
+    <h2> Post: </h2>
+    <table class="table table-striped">
+      <tbody>
+          <%= render partial: "shared/post_template", locals: {post: @post} %>      
+      </tbody>
+    </table>
+    <% if user_signed_in? %>
+      <%= form_for @reply, url: replys_post_path, :html => { class: 'reply' } do |f| %>
+        <div class="form-group">
+          <%= f.text_area :content, placeholder: "What's on your reply?", class: "form-control" %>
+          <%= f.hidden_field :post_id, value: @post.id %>
+        </div>
+        <div class="form-group">
+          <%= f.submit class: "btn btn-primary pull-right" %>          
+        </div>
+      <% end %>
+    <% else %>
+      <h4><%= "You need to login to reply this post." %></h4>
+    <% end %>
+
+  <div class="row col-md-8">
+    <!-- 顯示與問題相關的回答 -->
+    <h2> Answers: </h2>
+    <% @replies.each do |reply| %>
+    <div>
+      <h4><%= reply.user.name %></h4>
+      <p><%= simple_format reply.content %></p>
+      <div> <%= link_to "Upvote", reply_upvote_post_reply_path(@post,reply), method: :post, class: "btn btn-primary" %>
+       <%= reply.reply_upvotes.count %> upvotes </div>
+      <p class="text-muted">
+        <em><%= time_ago_in_words(reply.created_at) + " ago - "   %> </em>
+
+<!-- 下面if end間為註解 -->
+<% if false %>
+        <% if current_user.admin? %>
+        <%= link_to "Delete", post_reply_path(@post, reply), method: :delete %>
+        <% end %>
+<% end %>
+      </p>
+    </div>
+    <hr>
+    <% end %>
+
+    <div class="p-3 mb-2 bg-info text-white"><%= flash[:notice] %></div>
+    <div class="p-3 mb-2 bg-danger text-white"><%= flash[:alert] %></div>
+  </div>
+</div>
