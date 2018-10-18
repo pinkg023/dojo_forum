@@ -1,30 +1,27 @@
-    <table class="table">
+<table class="table table-bordered">
+  <div class="gray posttitle"><%= @post.title %></div>
       <tr>
           <td><%= @post.user.name %></td>
-          <td><%= @post.title %></td>  
+          <td><%= @post.description %></td>  
           <td><%= link_to 'Edit', root_path %></td>
           <td><%= link_to 'Destroy', root_path, method: :delete, data:{ confirm: "Are you sure?" } %> 
       </tr>
 
     <!-- 顯示與問題相關的回答 -->
+  <tbody>
     <% @replies.each do |reply| %>
         <tr>
-          <td><%= reply.user.name %></td>
-          <td><%= reply.comment %></td>
-          <td><%= link_to 'Edit', root_path %></td>
-          <td><%= link_to 'Destroy', root_path, method: :delete, data:{ confirm: "Are you sure?" } %></td>
+          <td class="gray"><%= reply.user.name %></td>
+          <td class="gray"><%= reply.comment %></td>
+          <td class="gray"><%= link_to 'Edit', root_path %></td>
+          <td class="gray"><%= link_to 'Destroy', root_path, method: :delete, data:{ confirm: "Are you sure?" } %></td>
         </tr>
-    </table>
-
+  </tbody>
 <!-- 下面if end間為註解 -->
-<% if false %>
-        <% if current_user.admin? %>
-        <%= link_to "Delete", post_reply_path(@post, reply), method: :delete %>
-        <% end %>
-<% end %>
-    <hr>
-    <% end %>
 
+    <% end %>
+</table>
+  <div class="col-md-12">
     <% if user_signed_in? %>
       <%= form_for @reply, url: reply_post_path, :html => { class: 'reply' } do |f| %>
         <div class="form-group">
@@ -32,12 +29,13 @@
           <%= f.hidden_field :post_id, value: @post.id %>
         </div>
         <div class="form-group">
-          <%= f.submit class: "btn btn-primary pull-right" %>          
+          <%= f.submit class: "btn btn-primary" %>          
         </div>
       <% end %>
     <% else %>
       <h4><%= "You need to login to reply this post." %></h4>
     <% end %>
+  </div>
 
     <div class="p-3 mb-2 bg-info text-white"><%= flash[:notice] %></div>
     <div class="p-3 mb-2 bg-danger text-white"><%= flash[:alert] %></div>
