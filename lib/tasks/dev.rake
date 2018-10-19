@@ -25,7 +25,7 @@ namespace :dev do
     @users = User.all
     @users.each do |user|
       3.times do |i|
-        Post.create!(title: FFaker::Lorem::sentence(10), description: FFaker::Lorem.characters(character_count = 50),
+        Post.create!(title: FFaker::Lorem::sentence(10), description: FFaker::Lorem.paragraph,
           user_id: user.id,
         )
       end

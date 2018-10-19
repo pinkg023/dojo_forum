@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20181017112637) do
     t.datetime "updated_at", null: false
     t.integer "replies_count", default: 0
     t.integer "views_count", default: 0
+    t.datetime "last_reply_time"
   end
 
   create_table "replies", force: :cascade do |t|

@@ -5,10 +5,11 @@
         <th>Replies count</th><th>Title</th><th>Last replied at</th><th>Views count</th>
       </tr>
       <% @posts.each do |post| %>
+        <% last_reply = post.replies.order(created_at: :desc).limit(1) %>
         <tr>
           <td><%= post.replies_count %></td>
           <td><%= post.title %></td>
-          <td><%= post.replies.last.created_at %></td>
+          <td><%= post.last_reply_time %></td>
           <td><%= link_to 'Edit', root_path %></td>
           <td><%= link_to 'Destroy', root_path, method: :delete, data:{ confirm: "Are you sure?" } %></td>
         </tr>
