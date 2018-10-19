@@ -16,8 +16,8 @@ namespace :dev do
       )
 
       user.save!
-      puts user.name
     end
+    puts "now you have #{User.count} users data"
   end
 
   task fake_post: :environment do
@@ -30,7 +30,6 @@ namespace :dev do
         )
       end
     end
-    puts "have created fake posts"
     puts "now you have #{Post.count} comments data"
   end
 
@@ -44,7 +43,6 @@ namespace :dev do
         )
       end
     end
-    puts 'have created fake replies'
     puts "now you have #{Reply.count} Reply data"
   end
 
