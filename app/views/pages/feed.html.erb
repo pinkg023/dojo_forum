@@ -1,0 +1,36 @@
+<div class="gray row text_center">
+    <div class="col-md-2 col-md-offset-3">
+      <h3>Users</h3>
+      <div class="feed_num"><%= User.count %></div>
+    </div>
+    <div class="col-md-2">
+      <h3>Posts</h3>
+      <div class="feed_num"><%= Post.count %></div>
+    </div>
+    <div class="col-md-2">
+      <h3>Comments</h3>
+      <div class="feed_num"><%= Reply.count %></div>
+    </div>
+</div>
+  <div class="col-md-2">
+    <h3>Chatterbox</h3>
+    <table class="table">
+      <% @chatterboxs.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.replies_count %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-md-10">
+    <h3>Most popular</h3>
+    <table class="table">
+      <% @popular_posts.each do |post| %>
+        <tr>
+          <td><%= post.title %></td>
+          <td><%= post.created_at %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
