@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20181017112637) do
 
   create_table "users", force: :cascade do |t|
     t.string "avatar"
+    t.integer "replies_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
