@@ -15,7 +15,7 @@ class PostsController < ApplicationController
       #   reply.upvotes_count = reply.reply_upvotes.count
       #   reply.save!
       # end
-      @replies = @post.replies
+      @replies = @post.replies.page(params[:page]).per(20)
       @reply = Reply.new
   end
 
