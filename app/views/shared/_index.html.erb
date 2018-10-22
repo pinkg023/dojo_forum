@@ -1,9 +1,11 @@
-<div class="gray posttitle"><%= "DojoForum" %></div>
-  <div class="col-md-12"">
-    <%= link_to 'All', root_path %>
+<div class="gray posttitle">
+  <h2><%= "DojoForum" %></h2><br>
+    <div class="cate_tag"><%= link_to 'All', root_path %></div>
     <% @categories.each do |category| %>
-      <%= link_to category.name, category_path(category) %>
+      <div class="cate_tag"><%= link_to category.name, category_path(category) %></div>
     <% end %>
+  </div>
+  <div class="col-md-12"">
     <table class="table">
       <tr>
         <th>Replies count</th><th>Title</th><th>Last replied at</th><th>Views count</th>
