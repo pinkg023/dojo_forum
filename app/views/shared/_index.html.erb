@@ -5,19 +5,17 @@
       <div class="cate_tag"><%= link_to category.name, category_path(category) %></div>
     <% end %>
   </div>
-  <div class="col-md-12"">
+  <div class="col-md-12">
     <table class="table">
       <tr>
-        <th>Replies count</th><th>Title</th><th>Last replied at</th><th>Views count</th>
+        <th><%= link_to "Replies count", order_most_reply_posts_path %></th><th>Title</th><th><%= link_to "Last replied at", order_last_reply_posts_path %></th><th>Views count</th>
       </tr>
       <% @posts.each do |post| %>
         <% last_reply = post.replies.order(created_at: :desc).limit(1) %>
         <tr>
           <td><%= post.replies_count %></td>
-          <td><%= post.title %></td>
+          <td><%= link_to post.title.truncate(100), post_path(post) %></td>
           <td><%= post.last_reply_time %></td>
-          <td><%= link_to 'Edit', root_path %></td>
-          <td><%= link_to 'Destroy', root_path, method: :delete, data:{ confirm: "Are you sure?" } %></td>
         </tr>
       <% end %>
     </table>

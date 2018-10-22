@@ -16,6 +16,12 @@ class PostsController < ApplicationController
     @user = current_user
   end
 
+  def order_most_reply
+    @categories = Category.all
+    @posts = Post.order(replies_count: :desc).page(params[:page]).per(20)
+    @user = current_user
+  end
+
   def show
       @post = Post.find(params[:id])
       # @post.replies.each do |reply|
