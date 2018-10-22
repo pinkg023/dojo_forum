@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     member do 
       post :reply
     end
+    collection do
+      get :order_last_reply
+      get :order_most_reply
+      get :order_most_view
+    end
   end
 
   get 'pages/feed' => 'pages#feed'
