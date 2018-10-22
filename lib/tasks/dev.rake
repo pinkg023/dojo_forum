@@ -22,14 +22,17 @@ namespace :dev do
 
   task fake_cate: :environment do
     Category.destroy_all
-    5.times do |i|
-
-      cate = Category.new(
-        name: "Category#{i}",
-      )
-
-      cate.save!
+    category_list = [
+      { name: "Category1" },
+      { name: "Category2" },
+      { name: "Category3" },
+      { name: "Category4" },
+      { name: "Category5" },
+    ]
+    category_list.each do |category|
+      Category.create( name: category[:name] )
     end
+
     puts "now you have #{Category.count} categories data"
   end
 
