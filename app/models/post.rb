@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  mount_uploader :image, ImageUploader
+
   has_many :replies
   belongs_to :user
   has_many :caterelates

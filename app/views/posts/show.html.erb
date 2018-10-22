@@ -2,7 +2,8 @@
   <div class="gray posttitle"><%= @post.title %></div>
       <tr>
           <td><div><%= image_tag @post.user.avatar, alt: @post.user.name, width: 200, height: 150 %></div><span><%= @post.user.name %></span></td>
-          <td><%= @post.description %></td>  
+          <td><%= @post.description %><br>
+            <% if @post.image? %><%= image_tag @post.image, width: 200, height: 150 %><% end %></td>  
           <td><%= link_to 'Edit', root_path %></td>
           <td><%= link_to 'Destroy', root_path, method: :delete, data:{ confirm: "Are you sure?" } %> 
       </tr>
