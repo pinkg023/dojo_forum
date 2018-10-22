@@ -2,7 +2,7 @@ namespace :dev do
   # 請先執行 rails dev:fake_user，可以產生 20 個資料完整的 User 紀錄
   # 其他測試用的假資料請依需要自行撰寫
 
-  task all: [:fake_user, :fake_post, :fake_reply]
+  task all: [:fake_user, :fake_cate, :fake_post, :fake_reply, :fake_caterelate]
 
   task fake_user: :environment do
     User.destroy_all
@@ -20,6 +20,19 @@ namespace :dev do
     puts "now you have #{User.count} users data"
   end
 
+  task fake_cate: :environment do
+    Category.destroy_all
+    5.times do |i|
+
+      cate = Category.new(
+        name: "Category#{i}",
+      )
+
+      cate.save!
+    end
+    puts "now you have #{Category.count} categories data"
+  end
+
   task fake_post: :environment do
     Post.destroy_all
     @users = User.all
@@ -30,7 +43,21 @@ namespace :dev do
         )
       end
     end
-    puts "now you have #{Post.count} comments data"
+    puts "now you have #{Post.count} posts data"
+  end
+
+  task fake_caterelate: :environment do
+    Caterelate.destroy_all
+    @posts = Post.all
+    @posts.each do |post|
+      rand(1..3).times do |i|
+        Caterelate.create!(
+          post_id: post.id,
+          category_id: Category.all.sample.id,
+        )
+      end
+    end
+    puts "now you have #{Caterelate.count} Caterelates data"
   end
 
   task fake_reply: :environment do
