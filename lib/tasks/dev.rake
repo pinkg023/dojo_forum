@@ -47,13 +47,13 @@ namespace :dev do
   end
 
   task fake_caterelate: :environment do
-    Caterelate.destroy_all
-    @posts = Post.all
-    @posts.each do |post|
-      rand(1..3).times do |i|
-        Caterelate.create!(
-          post_id: post.id,
-          category_id: Category.all.sample.id,
+    Caterelate.destroy_all 
+    Post.all.each do |post|
+      cates = Category.all.sample(rand(1..3))
+      cates.each do |cate|
+        Caterelate.create!( 
+          category_id: cate.id,
+          post_id: post.id 
         )
       end
     end
