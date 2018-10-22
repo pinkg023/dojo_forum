@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: []
+  before_action :authenticate_user!, except: [:index]
   def index
     @categories = Category.all
     @posts = Post.page(params[:page]).per(10)
@@ -20,10 +20,27 @@ class PostsController < ApplicationController
       @reply = Reply.new
   end
 
+  def reply
+    @post = Post.find(params[:id])
+    reply_params
+    @reply = @post.replies.build(reply_params)
+    @reply.user = current_user
+    if @reply.save
+      flash[:notice] = '回覆完成'
+    else
+      flash[:alert] = @reply.errors.full_messages.to_sentence
+    end
+    redirect_to post_path(@post)
+  end
+
   private
 
     def post_params
       params.require(:post).permit( :title, :description)
+    end
+
+    def reply_params
+      params.require(:reply).permit(:comment, :user_id, :post_id, :created_at, :updated_at)
     end
 
 end
