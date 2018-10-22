@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: []
   def index
+    @categories = Category.all
     @posts = Post.page(params[:page]).per(10)
     @user = current_user
     @recent_posts = Post.order(created_at: :desc).limit(10)
