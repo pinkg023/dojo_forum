@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+
   def index
+    @category = nil
     @categories = Category.all
     @posts = Post.page(params[:page]).per(20)
     @user = current_user
@@ -12,7 +14,12 @@ class PostsController < ApplicationController
 
   def order_last_reply
     @categories = Category.all
-    @posts = Post.order(last_reply_time: :desc).page(params[:page]).per(20)
+    if @category.nil?
+      @posts = Post.order(last_reply_time: :desc).page(params[:page]).per(20)
+    else
+      @posts = Post.posts.order(last_reply_time: :desc).page(params[:page]).per(20)
+    end
+      
     @user = current_user
   end
 
@@ -20,6 +27,23 @@ class PostsController < ApplicationController
     @categories = Category.all
     @posts = Post.order(replies_count: :desc).page(params[:page]).per(20)
     @user = current_user
+  end
+
+  def new
+    @categories = Category.all
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    @post.user_id = current_user.id
+    if @post.save
+      flash[:notice] = '發布貼文！'
+      redirect_to posts_path
+    else
+      flash[:alert] = @post.errors.full_messages.to_sentence
+      render :new
+    end
   end
 
   def show
@@ -48,7 +72,7 @@ class PostsController < ApplicationController
   private
 
     def post_params
-      params.require(:post).permit( :title, :description)
+      params.require(:post).permit( :title, :description, :category_ids)
     end
 
     def reply_params

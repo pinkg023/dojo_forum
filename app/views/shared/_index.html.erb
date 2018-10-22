@@ -8,7 +8,10 @@
   <div class="col-md-12">
     <table class="table">
       <tr>
-        <th><%= link_to "Replies count", order_most_reply_posts_path %></th><th>Title</th><th><%= link_to "Last replied at", order_last_reply_posts_path %></th><th>Views count</th>
+        <th><%= link_to "Replies count▼", order_most_reply_posts_path %></th>
+        <th>Title</th>
+        <th><%= link_to "Last replied at▼", order_last_reply_posts_path %></th>
+        <th>Views count</th>
       </tr>
       <% @posts.each do |post| %>
         <% last_reply = post.replies.order(created_at: :desc).limit(1) %>
