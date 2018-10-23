@@ -1,0 +1,26 @@
+<div class="gray posttitle">
+  <h2><%= "DojoForum" %></h2><br>
+    <div class="cate_tag"><%= link_to 'All', root_path %></div>
+    <% @categories.each do |category| %>
+      <div class="cate_tag"><%= link_to category.name, category_path(category) %></div>
+    <% end %>
+  </div>
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+        <th><%= link_to "Replies count▼", order_most_reply_posts_path %></th>
+        <th>Title</th>
+        <th><%= link_to "Last replied at▼", order_last_reply_posts_path %></th>
+        <th>Views count</th>
+      </tr>
+      <% @posts.each do |post| %>
+        <% last_reply = post.replies.order(created_at: :desc).limit(1) %>
+        <tr>
+          <td><%= post.replies_count %></td>
+          <td><%= link_to post.title.truncate(100), post_path(post) %></td>
+          <td><%= post.last_reply_time %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%= paginate @posts %>
+  </div>

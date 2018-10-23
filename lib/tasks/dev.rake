@@ -5,7 +5,6 @@ namespace :dev do
   task all: [:fake_user, :fake_cate, :fake_post, :fake_reply, :fake_caterelate]
 
   task fake_user: :environment do
-    User.destroy_all
     20.times do |i|
       name = FFaker::Name::first_name
 
