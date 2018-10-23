@@ -1,8 +1,9 @@
-class Admin::PostsController < ApplicationController
-  before_action :authenticate_admin
+class Admin::CategoriesController < ApplicationController
+ before_action :authenticate_admin
 
   def index
     @categories = Category.all
+    @category = Category.new
   end
 
   def create
@@ -17,6 +18,10 @@ class Admin::PostsController < ApplicationController
     end
   end
 
+  def show
+    @category = Category.find(params[:id])
+  end
+
   def update
     @category = Category.find(params[:id])
     if @category.update(category_params)
@@ -29,11 +34,13 @@ class Admin::PostsController < ApplicationController
   end
 
   def destroy
-    #@category = Category.find(params[:id])
-    @category_default=Category.find(0)
-    @category_default.restaurants << @category.restaurants    #當所屬分類被刪除時，修改餐廳分類為預設值
+    @category = Category.find(params[:id])
     @category.destroy
-    flash[:alert] = "category was successfully deleted"
+    if @category.present?
+      flash[:alert] = @category.errors.full_messages.to_sentence
+    else
+      flash[:alert] = "Category was successfully deleted" 
+    end
     redirect_to admin_categories_path
   end
 

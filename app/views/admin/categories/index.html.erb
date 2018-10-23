@@ -1,0 +1,22 @@
+<div class="gray posttitle"><h2><%= "DojoForum" %></h2></div>
+<div class="col-md-12">
+  <table class="table">
+    <% @categories.each do |category| %>       
+     <tr>
+      <td><%= category.name %></td>
+      <td><%= link_to 'Edit', admin_category_path(category) %></td>
+      <td><%= link_to 'Delete', admin_category_path(category), method: :delete, data: { confirm: "Are you sure?"} %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="col-md-10">
+  <%= form_for [:admin, @category] do |f| %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name , class: "form-control" %>
+    </div>
+    <%= f.submit %>
+  <% end %>
+</div>
