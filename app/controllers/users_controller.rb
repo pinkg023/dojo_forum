@@ -2,12 +2,12 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def mypost
-      @user = User.find(params[:id])
+      set_user
       @posts = @user.posts.page(params[:page]).per(20)
   end
 
   def mycomment
-      @user = User.find(params[:id])
+      set_user
       @user_replies = @user.replies
       @posts = []
       @user_replies.each do |reply|
@@ -17,6 +17,11 @@ class UsersController < ApplicationController
       @posts = @posts.uniq
       #authorize! :read, @post
       return(@posts)
+  end
+
+  def mycollect
+      set_user
+      @posts = @user.collect_posts.page(params[:page]).per(20)
   end
 
   def edit

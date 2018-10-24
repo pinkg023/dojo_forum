@@ -1,13 +1,13 @@
 <%= render partial: "shared/user_profile" %>
 
-  <div class="col-md-12">
+  <div class="container">
     <div class="row">
       <ul class="nav nav-pills nav-pills-center">
         <li role="presentation"><%= link_to "My Post", mypost_user_path %></li>
         <li role="presentation" class="active"><%= link_to "My Comment", root_path %></li>
-        <li role="presentation"><%= link_to "My Post", root_path %></li>
-        <li role="presentation"><%= link_to "My Post", root_path %></li>
-        <li role="presentation"><%= link_to "My Post", root_path %></li>            
+        <li role="presentation"><%= link_to "My Collect", mycollect_user_path %></li>
+        <li role="presentation"><%= link_to "My Post", mypost_user_path %></li>
+        <li role="presentation"><%= link_to "My Post", mypost_user_path %></li>  
       </ul>
     </div>
     <br>

@@ -1,5 +1,13 @@
 <table class="table table-bordered">
-  <div class="gray posttitle"><%= @post.title %></div>
+  <div class="gray posttitle"><%= @post.title %>
+    <span class="cate_tag pull-right">
+      <% if current_user.collect_posts.include?(@post) %>
+        <%= link_to "UnCollet", uncollect_post_path(@post), method: :post %>
+      <% else %>
+        <%= link_to "Collet", collect_post_path(@post), method: :post %>
+      <% end %>
+    </span>
+  </div>
       <tr>
           <td><div><%= link_to image_tag(@post.user.avatar, alt: @post.user.name, width: 200, height: 150), mypost_user_path(@post.user) %></div><br><span><%= @post.user.name %></span></td>
           <td><%= @post.description %><br>

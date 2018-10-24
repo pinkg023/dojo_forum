@@ -67,6 +67,28 @@ class PostsController < ApplicationController
     redirect_to post_path(@post)
   end
 
+  def collect
+    @post = Post.find(params[:id])
+    @collect = Collect.new( user_id: current_user.id, post_id: @post.id ) 
+    if @collect.save
+      flash[:notice] = '成功收藏！'
+    else
+      flash[:alert] = @collet.errors.full_messages.to_sentence
+    end  
+    redirect_to post_path(@post)
+  end
+
+  def uncollect
+    @post = Post.find(params[:id])
+    @collect = current_user.collects.where(post_id: params[:id]).first
+    if @collect.destroy
+      flash[:notice] = '已取消收藏'
+    else
+      flash[:alert] = @collet.errors.full_messages.to_sentence
+    end  
+    redirect_to post_path(@post)
+  end
+
   private
 
     def post_params

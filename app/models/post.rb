@@ -5,6 +5,8 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :caterelates
   has_many :categories, through: :caterelates, source: :category
+  has_many :collects
+  has_many :collect_users, through: :collects, source: :user
 
   def update_reply_cache
     self.last_reply_time = self.replies.last.try(:created_at)

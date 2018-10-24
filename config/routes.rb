@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     member do
       get :mypost
       get :mycomment
+      get :mycollect
     end
   end
 
@@ -21,6 +22,8 @@ Rails.application.routes.draw do
   resources :posts do
     member do 
       post :reply
+      post :collect
+      post :uncollect
     end
     collection do
       get :order_last_reply
