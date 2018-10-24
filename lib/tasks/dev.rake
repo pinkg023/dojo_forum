@@ -12,6 +12,7 @@ namespace :dev do
         name: name,
         email: "#{name}@example.co",
         password: "12345678",
+        intro: FFaker::Lorem::sentence(20),
       )
 
       user.save!

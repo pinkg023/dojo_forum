@@ -3,6 +3,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
     create_table :users do |t|
       t.string :avatar
       t.integer :replies_count, :default => 0
+      t.text :intro
       t.timestamps
     end
   end
