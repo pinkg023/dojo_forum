@@ -25,12 +25,17 @@ class UsersController < ApplicationController
 
   def update
     set_user
-    if @user.update(user_params)
-      flash[:notice] = "user was successfully updated"
-      redirect_to mypost_user_path(@user)      
-    else
-      render :edit
-      flash[:alert] = @user.errors.full_messages.to_sentence
+    if @user == current_user
+      if @user.update(user_params)
+        flash[:notice] = "user was successfully updated"
+        redirect_to mypost_user_path(@user)      
+      else
+        render edit_user_path(@user)
+        flash[:alert] = @user.errors.full_messages.to_sentence
+      end
+    else 
+      flash[:alert] = "You can not edit other's profile."
+      redirect_to edit_user_path(@user)
     end
   end
 
@@ -41,6 +46,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :opening_hours, :tel, :address, :description, :image, :category_id)
+    params.require(:user).permit(:name, :intro)
   end
 end

@@ -3,6 +3,9 @@
         <%= link_to image_tag(@user.avatar, alt: @user.name, width: 200, height: 150), mypost_user_path(@user) %><br><span><%= @user.name %></span>
       </div>
       <div class="col-md-10">
-        <%= @user.intro %><br><span class="cate_tag pull-right"><%= link_to "Edit", edit_user_path(@user) %></span>
+        <%= @user.intro %><br>
+        <% if @user == current_user %>
+          <span class="cate_tag pull-right"><%= link_to "Edit", edit_user_path(@user) %></span>
+        <% end %>
       </div>
 </div>
