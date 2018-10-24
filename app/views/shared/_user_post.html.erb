@@ -1,0 +1,9 @@
+    <table class="table">
+      <% @posts.each do |post| %>
+        <tr>          
+          <td><%= link_to post.title.truncate(100), post_path(post) %></td>
+          <td><%= post.created_at %></td>
+        </tr>
+      <% end %>
+    </table>
+    

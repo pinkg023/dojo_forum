@@ -9,6 +9,13 @@ Rails.application.routes.draw do
     root "categories#index"
   end
 
+  resources :users do
+    member do
+      get :mypost
+      get :mycomment
+    end
+  end
+
   resources :categories
 
   resources :posts do
