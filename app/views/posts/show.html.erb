@@ -1,7 +1,7 @@
 <table class="table table-bordered">
   <div class="gray posttitle"><%= @post.title %></div>
       <tr>
-          <td><div><%= image_tag @post.user.avatar, alt: @post.user.name, width: 200, height: 150 %></div><span><%= @post.user.name %></span></td>
+          <td><div><%= link_to image_tag(@post.user.avatar, alt: @post.user.name, width: 200, height: 150), mypost_user_path(@post.user) %></div><br><span><%= @post.user.name %></span></td>
           <td><%= @post.description %><br>
             <% if @post.image? %><%= image_tag @post.image, width: 200, height: 150 %><% end %></td>  
           <td><%= link_to 'Edit', root_path %></td>
@@ -12,7 +12,7 @@
   <tbody>
     <% @replies.each do |reply| %>
         <tr>
-          <td class="gray"><%= image_tag reply.user.avatar, alt: reply.user.name, width: 200, height: 150 %></div><span><%= reply.user.name %></td>
+          <td class="gray"><%= link_to image_tag(reply.user.avatar, alt: reply.user.name, width: 200, height: 150), mypost_user_path(reply.user) %></div><br><span><%= reply.user.name %></span></td>
           <td class="gray"><%= reply.comment %></td>
           <td class="gray"><%= link_to 'Edit', root_path %></td>
           <td class="gray"><%= link_to 'Destroy', root_path, method: :delete, data:{ confirm: "Are you sure?" } %></td>
