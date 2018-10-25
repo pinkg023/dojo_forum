@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_admin, only: [:destroy]
 
   def index
     @categories = Category.all
@@ -42,6 +43,17 @@ class PostsController < ApplicationController
       flash[:alert] = @post.errors.full_messages.to_sentence
       render :new
     end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    if @post.present?
+      flash[:alert] = @post.errors.full_messages.to_sentence
+    else
+      flash[:alert] = "Post was successfully deleted" 
+    end
+    redirect_to root_path
   end
 
   def show

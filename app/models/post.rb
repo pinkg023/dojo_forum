@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   mount_uploader :image, ImageUploader
 
-  has_many :replies
+  has_many :replies, :dependent => :destroy
   belongs_to :user
   has_many :caterelates
   has_many :categories, through: :caterelates, source: :category
