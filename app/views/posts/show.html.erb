@@ -10,7 +10,10 @@
   </div>
       <tr>
           <td><div><%= link_to image_tag(@post.user.avatar, alt: @post.user.name, width: 200, height: 150), mypost_user_path(@post.user) %></div><br><span><%= @post.user.name %></span></td>
-          <td><%= @post.description %><% if current_user == @post.user %><%= link_to "Delete", post_path(@post), method: :delete, class: "btn btn-info pull-right" %><% end %>
+          <td><%= @post.description %>
+            <% if current_user == @post.user %>
+            <%= link_to "Delete", post_path(@post), method: :delete, class: "btn btn-info pull-right" %>
+            <%= link_to "Edit", edit_post_path(@post), class: "btn btn-primary pull-right" %><% end %>
             <% if @post.image? %><%= image_tag @post.image, width: 200, height: 150 %><% end %></td>  
       </tr>
 

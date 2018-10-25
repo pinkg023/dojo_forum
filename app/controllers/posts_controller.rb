@@ -57,6 +57,25 @@ class PostsController < ApplicationController
     redirect_to root_path
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.user == current_user
+      if @post.update(post_params)
+        flash[:notice] = "post was be successfully updated"             
+      else
+        flash[:alert] = @user.errors.full_messages.to_sentence
+      end
+      redirect_to post_path(@post) 
+    else 
+      flash[:alert] = "You can not edit other's post."
+      redirect_to edit_post_path(@user)
+    end
+  end
+
   def show
       @post = Post.find(params[:id])
       # @post.replies.each do |reply|
