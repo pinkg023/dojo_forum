@@ -10,10 +10,8 @@
   </div>
       <tr>
           <td><div><%= link_to image_tag(@post.user.avatar, alt: @post.user.name, width: 200, height: 150), mypost_user_path(@post.user) %></div><br><span><%= @post.user.name %></span></td>
-          <td><%= @post.description %><br>
+          <td><%= @post.description %><% if current_user == @post.user %><%= link_to "Delete", post_path(@post), method: :delete, class: "btn btn-info pull-right" %><% end %>
             <% if @post.image? %><%= image_tag @post.image, width: 200, height: 150 %><% end %></td>  
-          <td><%= link_to 'Edit', root_path %></td>
-          <td><%= link_to 'Destroy', root_path, method: :delete, data:{ confirm: "Are you sure?" } %> 
       </tr>
 
     <!-- 顯示與問題相關的回答 -->
@@ -22,8 +20,6 @@
         <tr>
           <td class="gray"><%= link_to image_tag(reply.user.avatar, alt: reply.user.name, width: 200, height: 150), mypost_user_path(reply.user) %></div><br><span><%= reply.user.name %></span></td>
           <td class="gray"><%= reply.comment %></td>
-          <td class="gray"><%= link_to 'Edit', root_path %></td>
-          <td class="gray"><%= link_to 'Destroy', root_path, method: :delete, data:{ confirm: "Are you sure?" } %></td>
         </tr>
   </tbody>
 <!-- 下面if end間為註解 -->
