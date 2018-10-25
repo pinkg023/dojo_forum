@@ -12,6 +12,11 @@
         <%= image_tag @post.image, width: "150px"  if @post.image %>
         <%= f.file_field :image, class: "form-control" %>
     </div>
+    <div class="form-group">
+        <%= f.label :draft %>
+         <%= f.check_box :draft, label: false, as: :boolean %>
+        <span></span>
+    </div>
     <%= f.submit %>
   <% end %>
 </div>

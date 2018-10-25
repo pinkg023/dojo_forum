@@ -88,7 +88,7 @@ namespace :dev do
         ) 
       end     
     end
-    puts "now you have #{Collect.count} posts data"
+    puts "now you have #{Collect.count} collecs data"
   end
 
 end

@@ -1,0 +1,31 @@
+<%= render partial: "shared/user_profile" %>
+
+  <div class="container">
+    <div class="row">
+      <ul class="nav nav-pills nav-pills-center">
+        <li role="presentation"><%= link_to "My Post", mypost_user_path %></li>
+        <li role="presentation"><%= link_to "My Comment", mycomment_user_path %></li>
+        <li role="presentation"><%= link_to "My Collect", mycollect_user_path %></li>
+        <li role="presentation" class="active"><%= link_to "My Draft", mydraft_user_path %></li>
+        <li role="presentation"><%= link_to "My Post", mypost_user_path %></li>      
+      </ul>
+    </div>
+    <br>
+
+    <table class="table">
+      <% @posts.each do |post| %>
+        <% if post.draft == true %>
+          <tr>          
+            <td><%= link_to post.title.truncate(100), post_path(post) %>
+              <% if current_user == post.user %>
+                <%= link_to "Delete", post_path(post), method: :delete, class: "btn btn-info pull-right" %>
+                <%= link_to "Edit", edit_post_path(post), class: "btn btn-primary pull-right" %>
+                <% end %>
+            </td>
+            <td><%= post.created_at %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+
+  </div>

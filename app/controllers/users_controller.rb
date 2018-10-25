@@ -24,6 +24,11 @@ class UsersController < ApplicationController
       @posts = @user.collect_posts.page(params[:page]).per(20)
   end
 
+  def mydraft
+      set_user
+      @posts = @user.posts.page(params[:page]).per(20)
+  end
+
   def edit
     set_user
   end

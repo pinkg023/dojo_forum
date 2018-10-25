@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20181024074643) do
     t.text "description"
     t.string "image"
     t.integer "user_id"
+    t.boolean "draft"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "replies_count", default: 0

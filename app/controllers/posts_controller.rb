@@ -37,11 +37,11 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     if @post.save
       flash[:notice] = '發布貼文！'
-      redirect_to posts_path
     else
       flash[:alert] = @post.errors.full_messages.to_sentence
       render :new
     end
+    redirect_to mypost_user_path(current_user)
   end
 
   def destroy
@@ -54,7 +54,11 @@ class PostsController < ApplicationController
     else
       flash[:alert] = "Post was successfully deleted" 
     end
-    redirect_to root_path
+    if current_user.admin?
+      redirect_to root_path
+    else
+      redirect_to mypost_user_path(@post.user)
+    end
   end
 
   def edit
@@ -69,7 +73,7 @@ class PostsController < ApplicationController
       else
         flash[:alert] = @user.errors.full_messages.to_sentence
       end
-      redirect_to post_path(@post) 
+      redirect_to mypost_user_path(@post.user) 
     else 
       flash[:alert] = "You can not edit other's post."
       redirect_to edit_post_path(@user)
@@ -124,7 +128,7 @@ class PostsController < ApplicationController
   private
 
     def post_params
-      params.require(:post).permit( :title, :description, :category_ids, :image)
+      params.require(:post).permit( :title, :description, :category_ids, :image, :draft)
     end
 
     def reply_params

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get :mypost
       get :mycomment
       get :mycollect
+      get :mydraft
     end
   end
 
