@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :authenticate_admin, only: [:destroy]
 
   def index
     @categories = Category.all
@@ -47,7 +46,9 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
-    @post.destroy
+    if (current_user.admin? || @post.user == current_user)
+      @post.destroy
+    end
     if @post.present?
       flash[:alert] = @post.errors.full_messages.to_sentence
     else
