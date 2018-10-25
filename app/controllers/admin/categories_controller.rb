@@ -3,6 +3,7 @@ class Admin::CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
+    @users = User.all
     @category = Category.new
   end
 

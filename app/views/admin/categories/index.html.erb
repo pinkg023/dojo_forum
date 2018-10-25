@@ -17,6 +17,20 @@
       <%= f.label :name %>
       <%= f.text_field :name , class: "form-control" %>
     </div>
-    <%= f.submit %>
+    <div class="form-group"><%= f.submit %></div>
+  <% end %>
+</div>
+<br><br>
+<div class="col-md-12">
+  <% @users.each do |user| %>
+    <div class="col-md-2 well user_frame">
+      <%= user.name %>
+      <% if user.role != "admin" %>
+        <span class="cate_tag pull-right"><%= link_to "Admin", enadmin_admin_user_path(user), method: :post %></span>
+      <% else %>
+        <span class="cate_tag pull-right"><%= link_to "Unadmin", unadmin_admin_user_path(user), method: :post %></span>
+      <% end %><hr>
+      <% if !user.intro.nil? %><div><%= user.intro.truncate(100) %></div><br><% end %>
+    </div>
   <% end %>
 </div>
