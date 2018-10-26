@@ -3,7 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
+  
+  before_create :generate_authentication_token
+
   mount_uploader :avatar, AvatarUploader
 
   validates :name, :presence => true
@@ -18,4 +20,13 @@ class User < ApplicationRecord
     self.role == "admin"
   end
 
+  def generate_authentication_token
+     self.authentication_token = Devise.friendly_token
+  end
+
 end
+
+
+
+  
+
