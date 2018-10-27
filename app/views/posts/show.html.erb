@@ -15,7 +15,7 @@
                 <% if @post.user.in?(current_user.applyfriendmans) %>
                   <button class="btn btn-primary" ><%= "等待回應..." %></button>
                 <% elsif current_user.in?(@post.user.friends) || current_user.in?(@post.user.inverse_friends) %>
-                  <%= link_to "Unfriend", unfriend_user_path(@post.user), method: :post, class: "btn btn-primary" %>
+                  <%= %>
                 <% else %>
                   <%= link_to "Add friend", apply_user_path(@post.user), method: :post, class: "btn btn-primary" %>
                 <% end %>
@@ -38,7 +38,7 @@
                 <% if reply.user.in?(current_user.applyfriendmans) %>
                   <button class="btn btn-primary" ><%= "等待回應..." %></button>
                 <% elsif current_user.in?(reply.user.friends) || current_user.in?(reply.user.inverse_friends) %>
-                  <%= link_to "Unfriend", unfriend_user_path(reply.user), method: :post, class: "btn btn-primary" %>
+                  <%=  %>
                 <% else %>
                   <%= link_to "Add friend", apply_user_path(reply.user), method: :post, class: "btn btn-primary" %>
                 <% end %>

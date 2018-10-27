@@ -2,7 +2,7 @@ namespace :dev do
   # 請先執行 rails dev:fake_user，可以產生 20 個資料完整的 User 紀錄
   # 其他測試用的假資料請依需要自行撰寫
 
-  task all: [:fake_user, :fake_cate, :fake_post, :fake_reply, :fake_caterelate, :fake_collect, :fake_friendship, :fake_applyfriend]
+  task all: [:fake_user, :fake_cate, :fake_post, :fake_reply, :fake_caterelate, :fake_collect]
 
   task fake_user: :environment do
     20.times do |i|
@@ -95,9 +95,10 @@ namespace :dev do
     Friendship.destroy_all
     @users = User.all
     @users.each do |user|
+      users = @users - [user]
       1.times do |i|
         Friendship.create!(user_id: user.id, 
-          friend_id: User.all.sample.id
+          friend_id: users.sample.id
         )
       end
     end
@@ -108,9 +109,10 @@ namespace :dev do
     Applyfriend.destroy_all
     @users = User.all
     @users.each do |user|
+      users = @users - [user]
       1.times do |i|
         Applyfriend.create!(user_id: user.id, 
-          friend_id: User.all.sample.id
+          friend_id: users.sample.id
         )
       end
     end

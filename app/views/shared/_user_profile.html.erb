@@ -8,7 +8,7 @@
                 <% if @user.in?(current_user.applyfriendmans) %>
                   <button class="btn btn-primary pull-right" ><%= "等待回應..." %></button>
                 <% elsif current_user.in?(@user.friends) || current_user.in?(@user.inverse_friends) %>
-                  <%= link_to "Unfriend", unfriend_user_path(@user), method: :post, class: "btn btn-primary pull-right" %>
+                  <%=  %>
                 <% else %>
                   <%= link_to "Add friend", apply_user_path(@user), method: :post, class: "btn btn-primary pull-right" %>
                 <% end %>
