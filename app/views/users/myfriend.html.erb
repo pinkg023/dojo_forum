@@ -21,13 +21,15 @@
       <% end %>
     </table>
     <br>
-    <h3>Appliers</h3>
-    <table class="table">
-      <% @appliers.each do |applier| %>
-        <tr>
-          <td><%= link_to applier.name, mypost_user_path(applier) %></td>
-        </tr>
-      <% end %>
-    </table>
-
+    <% if current_user == @user %>
+      <h3>Appliers</h3>
+      <table class="table">
+        <% @appliers.each do |applier| %>
+          <tr>
+            <td><%= link_to applier.name, mypost_user_path(applier) %></td>
+            <td><%= link_to "接受", check_user_path(applier), method: :post, class: "btn btn-primary pull-right" %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
   </div>

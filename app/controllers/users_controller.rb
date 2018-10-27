@@ -67,13 +67,15 @@ class UsersController < ApplicationController
 
   def check
       set_user
-      applyfriend = @user.applyfriends.where("hiking_id = #{hiking.id}")
+      applyfriend = @user.applyfriends.where("friend_id = #{current_user.id}").first
+      applyfriend.destroy
       @friendship = Friendship.new( user_id: current_user.id, friend_id: @user.id ) 
       if @friendship.save
       flash[:notice] = '已確認好友申請！'
       else
         flash[:alert] = @friend.errors.full_messages.to_sentence
       end  
+      redirect_to myfriend_user_path(current_user)
   end
 
   def unfriend
