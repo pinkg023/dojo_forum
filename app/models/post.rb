@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   mount_uploader :image, ImageUploader
+  is_impressionable
 
   has_many :replies, :dependent => :destroy
   belongs_to :user

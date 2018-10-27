@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  impressionist :actions=>[:show]
 
   def index
     @categories = Category.all
@@ -82,6 +83,7 @@ class PostsController < ApplicationController
 
   def show
       @post = Post.find(params[:id])
+      impressionist(@post)
       # @post.replies.each do |reply|
       #   reply.upvotes_count = reply.reply_upvotes.count
       #   reply.save!

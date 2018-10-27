@@ -36,7 +36,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :categories
+  resources :categories do
+    member do
+      get :order_last_reply
+      get :order_most_reply
+      get :order_most_view
+    end
+  end
 
   resources :posts do
     member do 
