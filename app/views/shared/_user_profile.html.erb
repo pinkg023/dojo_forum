@@ -4,8 +4,17 @@
       </div>
       <div class="col-md-10">
         <div><%= @user.intro %></div><br>
-        <% if @user == current_user %>
-          <span class="cate_tag pull-right"><%= link_to "Edit", edit_user_path(@user) %></span>
+              <% if current_user != @user %>
+                <% if @user.in?(current_user.applyfriendmans) %>
+                  <button class="btn btn-primary pull-right" ><%= "等待回應..." %></button>
+                <% elsif current_user.in?(@user.friends) || current_user.in?(@user.inverse_friends) %>
+                  <%= link_to "Unfriend", unfriend_user_path(@user), method: :post, class: "btn btn-primary pull-right" %>
+                <% else %>
+                  <%= link_to "Add friend", apply_user_path(@user), method: :post, class: "btn btn-primary pull-right" %>
+                <% end %>
+              <% end %>
+        <% if @user == current_user %>          
+          <%= link_to "Edit", edit_user_path(@user), class: "btn btn-primary pull-right" %>
         <% end %>
       </div>
 </div>
