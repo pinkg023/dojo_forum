@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181026070136) do
+ActiveRecord::Schema.define(version: 20181026111219) do
+
+  create_table "applyfriends", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -50,6 +57,7 @@ ActiveRecord::Schema.define(version: 20181026070136) do
     t.integer "replies_count", default: 0
     t.integer "views_count", default: 0
     t.datetime "last_reply_time"
+    t.integer "access_right"
   end
 
   create_table "replies", force: :cascade do |t|

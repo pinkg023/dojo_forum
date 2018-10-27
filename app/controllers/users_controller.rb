@@ -49,6 +49,35 @@ class UsersController < ApplicationController
     end
   end
 
+  def apply
+      set_user      
+      @apply = Applyfriend.new( user_id: current_user.id, friend_id: @user.id ) 
+      if @apply.save
+      flash[:notice] = '已送出好友申請！'
+      else
+        flash[:alert] = @apply.errors.full_messages.to_sentence
+      end  
+  end
+
+  def check
+      set_user      
+      @friendship = Friendship.new( user_id: current_user.id, friend_id: @user.id ) 
+      if @friendship.save
+      flash[:notice] = '已確認好友申請！'
+      else
+        flash[:alert] = @friend.errors.full_messages.to_sentence
+      end  
+  end
+
+  def unfriend
+      @friendship = Friendship.find(params[:id])
+      if @friendship.destroy
+      flash[:notice] = '已取消好友！'
+    else
+      flash[:alert] = @friendship.errors.full_messages.to_sentence
+    end  
+  end
+
   private
 
   def set_user

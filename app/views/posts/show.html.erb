@@ -9,7 +9,12 @@
     </span>
   </div>
       <tr>
-          <td><div><%= link_to image_tag(@post.user.avatar, alt: @post.user.name, width: 200, height: 150), mypost_user_path(@post.user) %></div><br><span><%= @post.user.name %></span></td>
+          <td><div><%= link_to image_tag(@post.user.avatar, alt: @post.user.name, width: 200, height: 150), mypost_user_path(@post.user) %></div><br>
+            <span><%= @post.user.name %></span>
+            <% if current_user != @post.user %>
+              <%= link_to "Add friend", apply_user_path(@post.user), method: :post, class: "btn btn-primary" %>
+            <% end %>
+          </td>
           <td><%= @post.description %>
             <% if current_user == @post.user %>
             <%= link_to "Delete", post_path(@post), method: :delete, class: "btn btn-info pull-right" %>
@@ -21,7 +26,18 @@
   <tbody>
     <% @replies.each do |reply| %>
         <tr>
-          <td class="gray"><%= link_to image_tag(reply.user.avatar, alt: reply.user.name, width: 200, height: 150), mypost_user_path(reply.user) %></div><br><span><%= reply.user.name %></span></td>
+          <td class="gray"><%= link_to image_tag(reply.user.avatar, alt: reply.user.name, width: 200, height: 150), mypost_user_path(reply.user) %></div><br>
+              <span><%= reply.user.name %></span>
+              <% if current_user != @reply.user %>
+                <% if reply.user.in?(current_user.applyfriendmans) %>
+                  <button class="btn btn-primary" ><%= "等待回應..." %></button>
+                <% elsif current_user.in?(reply.user.friends) || current_user.in?(reply.user.inverse_friends) %>
+                  <%= link_to "Unfriend", unfriend_user_path(reply.user), method: :post, class: "btn btn-primary" %>
+                <% else %>
+                  <%= link_to "Add friend", apply_user_path(reply.user), method: :post, class: "btn btn-primary" %>
+                <% end %>
+              <% end %>
+          </td>
           <td class="gray"><%= reply.comment %></td>
         </tr>
   </tbody>

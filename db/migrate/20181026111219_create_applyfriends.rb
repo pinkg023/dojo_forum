@@ -1,6 +1,6 @@
-class CreateApplyFriends < ActiveRecord::Migration[5.1]
+class CreateApplyfriends < ActiveRecord::Migration[5.1]
   def change
-    create_table :apply_friends do |t|
+    create_table :applyfriends do |t|
       t.integer :user_id
       t.integer :friend_id
       t.timestamps

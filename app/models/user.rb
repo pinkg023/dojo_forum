@@ -14,10 +14,11 @@ class User < ApplicationRecord
   has_many :replies
   has_many :collects
   has_many :collect_posts, through: :collects, source: :post
-  has_many :apply_friends
+  has_many :applyfriends
+  has_many :applyfriendmans, through: :applyfriends, source: :friend
   has_many :friendships
   has_many :friends, through: :friendships
-  has_many :inverse_friends, class_name: "Followship", foreign_key: "friend_id"
+  has_many :inverse_friends, class_name: "Friendship", foreign_key: "friend_id"
 
   def admin?
     self.role == "admin"
