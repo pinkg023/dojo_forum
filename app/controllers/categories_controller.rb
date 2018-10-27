@@ -21,4 +21,11 @@ class CategoriesController < ApplicationController
     @user = current_user
   end
 
+  def order_most_view
+    @categories = Category.all
+    @category = Category.find(params[:id])
+    @posts = @category.posts.order(views_count: :desc).page(params[:page]).per(20)
+    @user = current_user
+  end
+
 end

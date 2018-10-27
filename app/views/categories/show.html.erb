@@ -3,6 +3,6 @@
         <th><%= link_to "Replies count▼", order_most_reply_category_path %></th>
         <th>Title</th>
         <th><%= link_to "Last replied at▼", order_last_reply_category_path %></th>
-        <th>Views count</th>
+        <th><%= link_to "Views count▼", order_most_view_category_path %></th>
       </tr>
 <%= render partial: "shared/index_bot", locals: {post: @post} %>

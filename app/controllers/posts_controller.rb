@@ -28,6 +28,12 @@ class PostsController < ApplicationController
     @user = current_user
   end
 
+  def order_most_view
+    @categories = Category.all
+    @posts = Post.order(views_count: :desc).page(params[:page]).per(20)
+    @user = current_user
+  end
+
   def new
     @categories = Category.all
     @post = Post.new
@@ -84,6 +90,8 @@ class PostsController < ApplicationController
   def show
       @post = Post.find(params[:id])
       impressionist(@post)
+      @post.views_count = @post.impressionist_count
+      @post.save
       # @post.replies.each do |reply|
       #   reply.upvotes_count = reply.reply_upvotes.count
       #   reply.save!
