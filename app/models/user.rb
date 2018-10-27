@@ -16,9 +16,13 @@ class User < ApplicationRecord
   has_many :collect_posts, through: :collects, source: :post
   has_many :applyfriends
   has_many :applyfriendmans, through: :applyfriends, source: :friend
+  has_many :inverse_applyfriends, class_name: "Applyfriend", foreign_key: "friend_id"
+  has_many :inverse_applyfriendmans, through: :inverse_applyfriends, source: :user
   has_many :friendships
-  has_many :friends, through: :friendships
-  has_many :inverse_friends, class_name: "Friendship", foreign_key: "friend_id"
+  has_many :friends, through: :friendships, source: :friend
+  has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
+  has_many :inverse_friends, through: :inverse_friendships, source: :user
+
 
   def admin?
     self.role == "admin"

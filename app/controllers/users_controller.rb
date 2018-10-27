@@ -29,6 +29,12 @@ class UsersController < ApplicationController
       @posts = @user.posts.page(params[:page]).per(20)
   end
 
+  def myfriend
+      set_user
+      @friends = @user.friends + @user.inverse_friends
+      @appliers = @user.inverse_applyfriendmans
+  end
+
   def edit
     set_user
   end
@@ -60,7 +66,8 @@ class UsersController < ApplicationController
   end
 
   def check
-      set_user      
+      set_user
+      applyfriend = @user.applyfriends.where("hiking_id = #{hiking.id}")
       @friendship = Friendship.new( user_id: current_user.id, friend_id: @user.id ) 
       if @friendship.save
       flash[:notice] = '已確認好友申請！'

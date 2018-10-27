@@ -1,0 +1,33 @@
+<%= render partial: "shared/user_profile" %>
+
+  <div class="container">
+    <div class="row">
+      <ul class="nav nav-pills nav-pills-center">
+        <li role="presentation"><%= link_to "My Post", mypost_user_path %></li>
+        <li role="presentation"><%= link_to "My Comment", mycomment_user_path %></li>
+        <li role="presentation"><%= link_to "My Collect", mycollect_user_path %></li>
+        <li role="presentation"><%= link_to "My Draft", mydraft_user_path %></li>
+        <li role="presentation" class="active"><%= link_to "My Friend", myfriend_user_path %></li>      
+      </ul>
+    </div>
+    <br>
+    
+    <h3>Friends</h3>
+    <table class="table">
+      <% @friends.each do |friend| %>
+        <tr>
+          <td><%= link_to friend.name, mypost_user_path(friend) %></td>
+        </tr>
+      <% end %>
+    </table>
+    <br>
+    <h3>Appliers</h3>
+    <table class="table">
+      <% @appliers.each do |applier| %>
+        <tr>
+          <td><%= link_to applier.name, mypost_user_path(applier) %></td>
+        </tr>
+      <% end %>
+    </table>
+
+  </div>

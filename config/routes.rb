@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       get :mycomment
       get :mycollect
       get :mydraft
+      get :myfriend
       post :apply
       post :check
       delete :unfriend
