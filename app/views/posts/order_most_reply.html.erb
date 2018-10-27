@@ -1,1 +1,8 @@
-<%= render partial: "shared/index", locals: {post: @post} %>
+<%= render partial: "shared/index_top", locals: {post: @post} %>
+      <tr>
+        <th><%= link_to "Replies count▼", order_most_reply_posts_path %></th>
+        <th>Title</th>
+        <th><%= link_to "Last replied at▼", order_last_reply_posts_path %></th>
+        <th>Views count</th>
+      </tr>
+<%= render partial: "shared/index_bot", locals: {post: @post} %>
