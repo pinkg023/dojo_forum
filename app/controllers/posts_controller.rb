@@ -121,7 +121,7 @@ class PostsController < ApplicationController
     else
       flash[:alert] = @collet.errors.full_messages.to_sentence
     end  
-    redirect_to post_path(@post)
+    #redirect_to post_path(@post)
   end
 
   def uncollect
@@ -132,7 +132,7 @@ class PostsController < ApplicationController
     else
       flash[:alert] = @collet.errors.full_messages.to_sentence
     end  
-    redirect_to post_path(@post)
+    #redirect_to post_path(@post)
   end
 
   private
