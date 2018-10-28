@@ -42,7 +42,7 @@ namespace :dev do
     @users.each do |user|
       3.times do |i|
         Post.create!(title: FFaker::Lorem::sentence(10), description: FFaker::Lorem.paragraph,
-          user_id: user.id, access_right: rand(0..2)
+          user_id: user.id
         )
       end
     end
