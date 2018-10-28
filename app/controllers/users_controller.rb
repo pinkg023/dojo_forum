@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   end
 
   def apply
-      set_user      
+      set_user           
       @apply = Applyfriend.new( user_id: current_user.id, friend_id: @user.id ) 
       if @apply.save
       flash[:notice] = '已送出好友申請！'

@@ -34,11 +34,11 @@
               <span><%= reply.user.name %></span>
               <% if current_user != reply.user %>
                 <% if reply.user.in?(current_user.applyfriendmans) %>
-                  <button class="btn btn-primary" ><%= "等待回應..." %></button>
+                  <button class="btn btn-primary", id="<%= reply.user.id %>" ><%= "等待回應..." %></button>
                 <% elsif current_user.in?(reply.user.friends) || current_user.in?(reply.user.inverse_friends) %>
                   <%=  %>
                 <% else %>
-                  <%= link_to "Add friend", apply_user_path(reply.user), method: :post, class: "btn btn-primary" %>
+                  <%= link_to "Add friend", apply_user_path(reply.user), method: :post, class: "btn btn-primary" , id: reply.user.id, remote: true  %>
                 <% end %>
               <% end %>
           </td>
