@@ -1,17 +1,23 @@
       <% @posts.each do |post| %>
         <% if post.draft != true %>
-          <tr>
-            <td><%= post.replies_count %></td>
-            <td><%= link_to post.title.truncate(100), post_path(post) %>
-            <% if !current_user.nil? %>
-              <% if current_user.role == "admin" %><%= link_to "Delete", post_path(post), method: :delete, class: "btn btn-info pull-right" %><% end %>
-            <% end %>
-            </td>
-            <td><%= post.last_reply_time %></td>
-            <td><%= post.impressionist_count %></td>
-          </tr>
+          <% if post.access_right == 0 || current_user == post.user || ( post.access_right == 1 && (( current_user.in?(post.user.friends) || current_user.in?(post.user.inverse_friends)))) %>
+            <tr>
+              <td><%= post.replies_count %></td>
+              <td><%= link_to post.title.truncate(100), post_path(post) %>
+              <% if !current_user.nil? %>
+                <% if current_user.role == "admin" %><%= link_to "Delete", post_path(post), method: :delete, class: "btn btn-info pull-right" %><% end %>
+              <% end %>
+              </td>
+              <td><%= post.last_reply_time %></td>
+              <td><%= post.impressionist_count %></td>
+            </tr>
+          <% end %>
         <% end %>
       <% end %>
     </table>
     <%= paginate @posts %>
   </div>
+
+
+
+            
