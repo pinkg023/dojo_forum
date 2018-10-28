@@ -17,6 +17,11 @@
          <%= f.check_box :draft, label: false, as: :boolean %>
         <span></span>
     </div>
+
+    <div class="form-group">
+        <label>文章權限：</label>
+        <%= f.select :access_right, access_right_select, {}, prompt: '文章權限' %>
+    </div>
     <%= f.submit %>
   <% end %>
 </div>

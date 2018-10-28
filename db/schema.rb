@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20181027161327) do
     t.integer "replies_count", default: 0
     t.integer "views_count", default: 0
     t.datetime "last_reply_time"
-    t.integer "access_right"
+    t.integer "access_right", default: 0
   end
 
   create_table "replies", force: :cascade do |t|
