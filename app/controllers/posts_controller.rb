@@ -42,6 +42,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
+    @category = params[:posts][:category_ids]
+    @post.category_ids = @category
     if @post.save
       flash[:notice] = '發布貼文！'
     else
@@ -74,6 +76,8 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    @category = params[:post][:category_ids]
+    @post.category_ids = @category
     if @post.user == current_user
       if @post.update(post_params)
         flash[:notice] = "post was be successfully updated"             

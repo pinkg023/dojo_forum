@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   has_many :replies, :dependent => :destroy
   belongs_to :user
   has_many :caterelates
-  has_many :categories, through: :caterelates, source: :category
+  has_many :categories, through: :caterelates
   has_many :collects
   has_many :collect_users, through: :collects, source: :user
 
