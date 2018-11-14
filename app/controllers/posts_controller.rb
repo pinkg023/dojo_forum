@@ -42,7 +42,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-    @category = params[:posts][:category_ids]
+    @category = params[:post][:category_ids]
     @post.category_ids = @category
     if @post.save
       flash[:notice] = '發布貼文！'
