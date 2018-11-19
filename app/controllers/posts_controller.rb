@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   def index
     @categories = Category.all
-    @posts = Post.page(params[:page]).per(20)
+    @posts = Post.where(draft: false).page(params[:page]).per(20)
     @user = current_user
     @recent_posts = Post.order(created_at: :desc).limit(10)
     @post = Post.new
