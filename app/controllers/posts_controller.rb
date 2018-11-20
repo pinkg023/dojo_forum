@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   def order_last_reply
     @categories = Category.all
     if @category.nil?
-      @posts = Post.order(last_reply_time: :desc).page(params[:page]).per(20)
+      @posts = Post.where(draft: false).order(last_reply_time: :desc).page(params[:page]).per(20)
     else
       @posts = Post.posts.order(last_reply_time: :desc).page(params[:page]).per(20)
     end
@@ -24,13 +24,13 @@ class PostsController < ApplicationController
 
   def order_most_reply
     @categories = Category.all
-    @posts = Post.order(replies_count: :desc).page(params[:page]).per(20)
+    @posts = Post.where(draft: false).order(replies_count: :desc).page(params[:page]).per(20)
     @user = current_user
   end
 
   def order_most_view
     @categories = Category.all
-    @posts = Post.order(views_count: :desc).page(params[:page]).per(20)
+    @posts = Post.where(draft: false).order(views_count: :desc).page(params[:page]).per(20)
     @user = current_user
   end
 
