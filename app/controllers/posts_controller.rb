@@ -4,11 +4,16 @@ class PostsController < ApplicationController
 
   def index
     @categories = Category.all
-    @posts = Post.where(draft: false).page(params[:page]).per(20)
+    #@posts = Post.where(draft: false).page(params[:page]).per(20)
+    if current_user.nil?
+      @posts = Post.where( draft: false, access_right: 0).page(params[:page]).per(20)
+    else
+      @posts = (current_user.posts
+              .or(Post.where(user_id: current_user.friends.ids, draft: false, access_right: 1))
+              .or(Post.where(user_id: current_user.inverse_friends.ids, draft: false, access_right: 1)) 
+              .or(Post.where( draft: false, access_right: 0))).page(params[:page]).per(20)
+    end
     @user = current_user
-    @recent_posts = Post.order(created_at: :desc).limit(10)
-    @post = Post.new
-    #@users # 基於測試規格，必須講定變數名稱，請用此變數中存放關注人數 Top 10 的使用者資料
   end
 
   def order_last_reply

@@ -14,4 +14,16 @@ class Post < ApplicationRecord
     self.save(:validate => false)
   end
 
+  def self.publish_myself(user)
+    where(user_id: user.id)
+  end
+
+  def self.publish_myfriends(friends_id)
+    where(user_id: friends_id, draft: false, access_right: 1)
+  end
+
+  def self.publish_all
+    where(draft: false, access_right: 0)
+  end
+
 end
